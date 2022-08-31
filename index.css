@@ -550,7 +550,7 @@ section.cards > div > div {
 }
 
 section.cards > div > div > p {
-	text-align: justify;
+	text-align: left;
 }
 
 .row {
@@ -574,7 +574,7 @@ section.cards > div > div > p {
 
 .row > a {
 	opacity: 1;
-	
+
 	fill: var(--foreground-emphasis);
 }
 
