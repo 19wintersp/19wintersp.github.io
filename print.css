@@ -1,0 +1,30 @@
+body {
+	font-family: "Inter", "Helvetica", sans-serif;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+ul {
+	margin: 0px;
+	padding-left: 32px;
+}
+
+li {
+	margin-bottom: .2em;
+}
+
+#logo {
+	margin: 32px;
+}
+
+#logo > path {
+	fill: black;
+	stroke: none;
+}
+
+.screen-only {
+	display: none;
+}

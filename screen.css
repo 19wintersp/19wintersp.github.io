@@ -1,0 +1,166 @@
+body {
+	margin: 0px;
+	padding: 64px;
+
+	display: flex;
+	justify-content: space-between;
+
+	background-color: #0c0d0d;
+
+	font-family: "Inter", "Helvetica", sans-serif;
+	font-size: 12px;
+}
+
+@media (max-width: 400px) {
+	body {
+		padding: 32px;
+	}
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+li {
+	display: flex;
+}
+
+li > a {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+
+	line-height: 1.25em;
+
+	color: #fff;
+	cursor: pointer;
+	opacity: 75%;
+	text-decoration: none;
+
+	transition: opacity .5s ease;
+}
+
+li > a:hover {
+	opacity: 100%;
+}
+
+li > a > span:first-child::after {
+	content: "\200b";
+
+	width: 100%;
+	height: 1px;
+
+	display: block;
+
+	background-color: white;
+	transform: translateX(-50%) scaleX(0%);
+
+	transition: transform .2s ease-out;
+}
+
+li > a:hover > span:first-child::after {
+	transform: none;
+}
+
+li > a > span:nth-child(2) {
+	width: 5px;
+	height: 8px;
+
+	display: block;
+
+	color: #0000;
+	background-image: url(data:image/svg+xml,%3Csvg%20width%3D%225%22%20height%3D%229%22%20viewBox%3D%220%200%205%209%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%201.5L4%204.5L1%207.5%22%20stroke%3D%22white%22%20stroke-linecap%3D%22square%22%2F%3E%3C%2Fsvg%3E);
+
+	font-size: 0px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	li > a > span:not(:first-child) {
+		opacity: 0%;
+		transform: translateX(-4px);
+
+		transition: all .2s ease;
+	}
+
+	li > a:hover > span:not(:first-child) {
+		opacity: 100%;
+		transform: translateX(0px);
+	}
+}
+
+li > a > span:last-child {
+	color: #fffb;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	li > a > span:first-child::after {
+		transition: none !important;
+	}
+}
+
+footer {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+
+	padding: 16px;
+	max-width: calc(100vw - 32px);
+
+	display: flex;
+	align-items: center;
+	gap: 8px;
+
+	font-size: 10px;
+
+	color: #fff;
+	opacity: 50%;
+
+	transition: opacity .5s ease;
+}
+
+footer:hover {
+	opacity: 75%;
+}
+
+footer > p {
+	margin: 0px;
+}
+
+footer > div {
+	height: 1em;
+	width: 1px;
+	background-color: #fff;
+}
+
+footer a {
+	color: #fff;
+}
+
+#canvas, #fallback {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: -1;
+
+	width: 100vw;
+	height: 100vh;
+}
+
+#fallback {
+	visibility: hidden;
+}
+
+.print-only {
+	display: none;
+}
