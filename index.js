@@ -225,7 +225,10 @@ try {
 
 	render();
 } catch (err) {
-	console.error(err);
+	if (location.hash === "debug")
+		alert(err);
+	else
+		console.error(err);
 
 	canvas.remove();
 

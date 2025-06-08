@@ -52,7 +52,7 @@ li > a {
 	transition: opacity .5s ease;
 }
 
-li > a:hover {
+li > a:is(:hover, :focus) {
 	opacity: 100%;
 }
 
@@ -70,7 +70,7 @@ li > a > span:first-child::after {
 	transition: transform .2s ease-out;
 }
 
-li > a:hover > span:first-child::after {
+li > a:is(:hover, :focus) > span:first-child::after {
 	transform: none;
 }
 
@@ -94,7 +94,7 @@ li > a > span:nth-child(2) {
 		transition: all .2s ease;
 	}
 
-	li > a:hover > span:not(:first-child) {
+	li > a:is(:hover, :focus) > span:not(:first-child) {
 		opacity: 100%;
 		transform: translateX(0px);
 	}
@@ -138,7 +138,7 @@ footer {
 	}
 }
 
-footer:hover {
+footer:is(:hover, :focus) {
 	opacity: 75%;
 }
 
