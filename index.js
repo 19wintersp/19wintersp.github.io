@@ -225,7 +225,7 @@ try {
 
 	render();
 } catch (err) {
-	if (location.hash === "debug")
+	if (location.hash === "#debug")
 		alert(err);
 	else
 		console.error(err);
