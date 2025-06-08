@@ -9,6 +9,8 @@ body {
 
 	font-family: "Inter", "Helvetica", sans-serif;
 	font-size: 12px;
+
+	user-select: none;
 }
 
 @media (max-width: 400px) {
@@ -44,7 +46,6 @@ li > a {
 	line-height: 1.25em;
 
 	color: #fff;
-	cursor: pointer;
 	opacity: 75%;
 	text-decoration: none;
 
@@ -123,10 +124,18 @@ footer {
 
 	font-size: 10px;
 
+	backdrop-filter: blur(8px);
+	background-color: #000a;
 	color: #fff;
 	opacity: 50%;
 
 	transition: opacity .5s ease;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+	footer {
+		background-color: #0c0d0d;
+	}
 }
 
 footer:hover {
@@ -157,8 +166,16 @@ footer a {
 	height: 100vh;
 }
 
-#fallback {
-	visibility: hidden;
+@media (prefers-reduced-motion: no-preference) {
+	#fallback {
+		visibility: hidden;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#canvas {
+		visibility: hidden;
+	}
 }
 
 .print-only {
