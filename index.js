@@ -145,27 +145,22 @@ try {
 			return int(floor(simplex(v_in) * 3.0));
 		}
 
+		float kernel(vec3 c, float d) {
+			int a = simplex_quant(c);
+			return (
+				a != simplex_quant(c + vec3(  -d,  0.0, 0.0)) ||
+				a != simplex_quant(c + vec3(  -d,    d, 0.0)) ||
+				a != simplex_quant(c + vec3( 0.0,    d, 0.0))
+			) ? 1.0 : 0.0;
+		}
+
 		void main() {
-			int v[16];
-			for (uint i = 0u; i < 16u; i++) {
-				vec2 dxy = vec2(float(i & 3u), float(i >> 2u)) - 1.0;
-				v[int(i)] = simplex_quant(tex + cell * vec3(dxy, 0.0));
-			}
-
-			float w = 0.0;
-
-			uint ci[4] = uint[4](5u, 6u, 9u, 10u);
-			uint di[4] = uint[4](5u, 4u, 3u, 1u);
-
-			for (uint i = 0u; i < 4u; i++) {
-				int vc = v[ci[i]];
-				for (uint j = 0u; j < 4u; j++) {
-					if (v[ci[i] + di[i]] != vc || v[ci[i] - di[i]] != vc) {
-						w += 0.25;
-						break;
-					}
-				}
-			}
+			float w = 0.25 * (
+				kernel(tex + vec3(-.25, -.25, 0.0) * cell, cell) +
+				kernel(tex + vec3( .25, -.25, 0.0) * cell, cell) +
+				kernel(tex + vec3(-.25,  .25, 0.0) * cell, cell) +
+				kernel(tex + vec3( .25,  .25, 0.0) * cell, cell)
+			);
 
 			vec2 screen = tex.xy / cell;
 			float k = screen.x + 0.6 * (size.y - screen.y) - 200.0;
