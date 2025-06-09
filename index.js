@@ -170,7 +170,7 @@ try {
 			vec2 screen = tex.xy / cell;
 			float k = screen.x + 0.6 * (size.y - screen.y) - 200.0;
 			w *= .5 * clamp(2.5 * k / max(size.x, size.y), 0.2, 1.0);
-			w *= sin(min(time, 1.0) * 1.5708);
+			w *= sin(min(time / 2.0, 1.0) * 1.5708);
 
 			fragColor = vec4(w, w, w, 1.0);
 		}

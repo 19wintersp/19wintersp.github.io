@@ -25,6 +25,42 @@ main {
 	gap: 16px;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+	@keyframes logo-path {
+		0% {
+			stroke-dasharray: 0px 1000px;
+			fill-opacity: 0%;
+		}
+		50% {
+			fill-opacity: 0%;
+		}
+		100% {
+			stroke-dasharray: 311px 1000px;
+			fill-opacity: 100%;
+		}
+	}
+
+	#logo > path {
+		animation: ease-out 2s forwards logo-path;
+	}
+
+	@keyframes link {
+		from {
+			opacity: 0%;
+			transform: translateY(-50%);
+		}
+		to {
+			opacity: 100%;
+			transform: translateY(0%);
+		}
+	}
+
+	li {
+		animation: ease-out .5s both link;
+		animation-delay: calc(var(--n) * .1s + .2s);
+	}
+}
+
 ul {
 	margin: 0px;
 	padding: 0px;
