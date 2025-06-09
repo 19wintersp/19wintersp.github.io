@@ -1,3 +1,11 @@
+let log = () => {};
+if (location.hash === "#debug") {
+	const logs = document.createElement("pre");
+	logs.style.color = "#f77";
+	document.querySelector("main").appendChild(logs);
+	log = (data) => logs.innerText += data + "\n";
+}
+
 try {
 	const canvas = document.getElementById("canvas");
 
@@ -114,12 +122,11 @@ try {
 				perm12[v_ii.x + perm[v_ii.y + perm[v_ii.z + 1u]     + 1u]     + 1u]
 			);
 
-			vec3 v_n[4] = vec3[4](
-				v_0,
-				v_0 - vec3(v_1i) + SKEW_G,
-				v_0 - vec3(v_2i) + SKEW_G * 2.0,
-				v_0 - 1.0        + SKEW_G * 3.0
-			);
+			vec3 v_n[4]; // this cannot be directly initialised due to a browser bug
+			v_n[0] = v_0;
+			v_n[1] = v_0 - vec3(v_1i) + SKEW_G;
+			v_n[2] = v_0 - vec3(v_2i) + SKEW_G * 2.0;
+			v_n[3] = v_0 - 1.0        + SKEW_G * 3.0;
 
 			float n = 0.0;
 			for (int i = 0; i < 4; i++) {
@@ -173,14 +180,20 @@ try {
 	gl.shaderSource(vtxShader, vtxSrc);
 	gl.compileShader(vtxShader);
 
+	log(gl.getShaderInfoLog(vtxShader));
+
 	const fragShader = gl.createShader(gl.FRAGMENT_SHADER);
 	gl.shaderSource(fragShader, fragSrc);
 	gl.compileShader(fragShader);
+
+	log(gl.getShaderInfoLog(fragShader));
 
 	const prog = gl.createProgram();
 	gl.attachShader(prog, vtxShader);
 	gl.attachShader(prog, fragShader);
 	gl.linkProgram(prog);
+
+	log(gl.getProgramInfoLog(prog));
 
 	const posBuf = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
@@ -225,10 +238,8 @@ try {
 
 	render();
 } catch (err) {
-	if (location.hash === "#debug")
-		alert(err);
-	else
-		console.error(err);
+	log(err);
+	console.error(err);
 
 	canvas.remove();
 
