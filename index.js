@@ -209,22 +209,22 @@ try {
 	const gradLoc = gl.getUniformLocation(prog, "grad");
 
 	gl.useProgram(prog);
+
+	gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+	gl.enableVertexAttribArray(posLoc);
+	gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
 	gl.uniform1f(cellLoc, 1/64);
+	gl.uniform1uiv(permLoc, perm);
+	gl.uniform1uiv(perm12Loc, perm12);
+	gl.uniform3fv(gradLoc, grad);
 
 	const tRef = performance.now();
 	const render = () => {
 		gl.useProgram(prog);
 
-		gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
-		gl.enableVertexAttribArray(posLoc);
-		gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-
 		gl.uniform2f(sizeLoc, canvas.clientWidth, canvas.clientHeight);
 		gl.uniform1f(timeLoc, (performance.now() - tRef) / 1000);
-
-		gl.uniform1uiv(permLoc, perm);
-		gl.uniform1uiv(perm12Loc, perm12);
-		gl.uniform3fv(gradLoc, grad);
 
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
