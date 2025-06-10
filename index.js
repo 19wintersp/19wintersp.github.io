@@ -25,10 +25,10 @@ try {
 	while (p.length > 0)
 		P.push(p.splice(Math.floor(p.length * Math.random()), 1)[0]);
 
-	const perm = new Uint32Array(512), perm12 = new Uint32Array(512);
+	const perm = new Uint32Array(512), perm12 = new Uint32Array(256);
 	for (let i = 0; i < 256; i++) {
-		perm[i]   = perm[i | 256]   = P[i];
-		perm12[i] = perm12[i | 256] = P[i] % 12;
+		perm[i] = perm[i | 256] = P[i];
+		perm12[i] = P[i] % 12;
 	}
 
 	const grad = new Float32Array([
@@ -75,7 +75,7 @@ try {
 		uniform float cell;
 		uniform float time;
 		uniform uint perm[512];
-		uniform uint perm12[512];
+		uniform uint perm12[256];
 		uniform vec3 grad[12];
 		uniform vec2 size;
 
@@ -116,10 +116,10 @@ try {
 
 			uvec3 v_ii = uvec3(ivec3(v_fl) & 255);
 			uint g[4] = uint[4](
-				perm12[v_ii.x + perm[v_ii.y + perm[v_ii.z]]],
-				perm12[v_ii.x + perm[v_ii.y + perm[v_ii.z + v_1i.z] + v_1i.y] + v_1i.x],
-				perm12[v_ii.x + perm[v_ii.y + perm[v_ii.z + v_2i.z] + v_2i.y] + v_2i.x],
-				perm12[v_ii.x + perm[v_ii.y + perm[v_ii.z + 1u]     + 1u]     + 1u]
+				perm12[(v_ii.x + perm[v_ii.y + perm[v_ii.z]]) & 255u],
+				perm12[(v_ii.x + perm[v_ii.y + perm[v_ii.z + v_1i.z] + v_1i.y] + v_1i.x) & 255u],
+				perm12[((v_ii.x + perm[v_ii.y + perm[v_ii.z + v_2i.z] + v_2i.y] + v_2i.x) & 255u],
+				perm12[((v_ii.x + perm[v_ii.y + perm[v_ii.z + 1u]     + 1u]     + 1u) & 255u]
 			);
 
 			vec3 v_n[4]; // this cannot be directly initialised due to a browser bug
