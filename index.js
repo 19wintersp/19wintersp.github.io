@@ -118,8 +118,8 @@ try {
 			uint g[4] = uint[4](
 				perm12[(v_ii.x + perm[v_ii.y + perm[v_ii.z]]) & 255u],
 				perm12[(v_ii.x + perm[v_ii.y + perm[v_ii.z + v_1i.z] + v_1i.y] + v_1i.x) & 255u],
-				perm12[((v_ii.x + perm[v_ii.y + perm[v_ii.z + v_2i.z] + v_2i.y] + v_2i.x) & 255u],
-				perm12[((v_ii.x + perm[v_ii.y + perm[v_ii.z + 1u]     + 1u]     + 1u) & 255u]
+				perm12[(v_ii.x + perm[v_ii.y + perm[v_ii.z + v_2i.z] + v_2i.y] + v_2i.x) & 255u],
+				perm12[(v_ii.x + perm[v_ii.y + perm[v_ii.z + 1u]     + 1u]     + 1u) & 255u]
 			);
 
 			vec3 v_n[4]; // this cannot be directly initialised due to a browser bug
